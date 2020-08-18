@@ -10,3 +10,9 @@ setup basic express server
 
 
 creating controllers for logic
+
+to see the commit history 
+>> git log --oneline
+
+1. What is node js Middleware
+npm install --save morgan
