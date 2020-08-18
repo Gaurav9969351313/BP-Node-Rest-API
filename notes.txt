@@ -7,3 +7,6 @@ for windows
 setx NODE_ENV developement
 
 setup basic express server
+
+
+creating controllers for logic
