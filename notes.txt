@@ -1,0 +1,9 @@
+package.json 
+
+for linux based
+"script": "NODE_ENV=production && nodemon index.json"
+
+for windows 
+setx NODE_ENV developement
+
+setup basic express server
