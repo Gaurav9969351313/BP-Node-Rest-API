@@ -1,35 +1,41 @@
 @host=http://localhost:5000
 @baseUrlForBootcamp=api/v1/bootcamp
+@id=5f3c0039da90c1337899ce58
 
 ### Get All Bootcamp
 GET {{host}}/{{baseUrlForBootcamp}} HTTP/1.1
 
 ### Get Single Bootcamp
-GET {{host}}/{{baseUrlForBootcamp}}/255 HTTP/1.1
+GET {{host}}/{{baseUrlForBootcamp}}/5f3c0039da90c1337899ce58 HTTP/1.1
 
 ### Create a Bootcamp
 POST {{host}}/{{baseUrlForBootcamp}} HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "gaurav talele"
+    "name": "gaurav talele",
+    "description": "This is great course",
+    "website": "http://gauravtalele.com",
+    "email": "gauravtalele@gmail.com",
+    "address": "jai durga mata complex, ulhasnagar",
+    "careers": ["Data Science", "Other"],
+    "avgRating": 5
 }
 
 ### Update a Bootcamp
-PUT {{host}}/{{baseUrlForBootcamp}}/255 HTTP/1.1
+PUT {{host}}/{{baseUrlForBootcamp}}/5f3c0039da90c1337899ce58 HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "gaurav talele"
+    "name": "kajal talele",
+    "description": "you are mad",
+    "avgRating": 7
 }
 
 ### Delete a Bootcamp
-DELETE {{host}}/{{baseUrlForBootcamp}}/255 HTTP/1.1
+DELETE {{host}}/{{baseUrlForBootcamp}}/5f3c0039da90c1337899ce58 HTTP/1.1
 Content-Type: application/json
 
-{
-    "name": "gaurav talele"
-}
 
 
 

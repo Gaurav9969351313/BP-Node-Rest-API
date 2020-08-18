@@ -2,9 +2,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const colors = require('colors');
+const connectDB = require('./config/db');
 
 dotenv.config({ path: './config/config.env' });
+
+connectDB();
+
 const app = express();
+
+// Body Parser
+app.use(express.json());
 
 // Load Route Files 
 const BootcampRoutes = require('./routes/bootcamps.routes');
@@ -22,7 +30,15 @@ app.use('/api/v1/bootcamp', BootcampRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log("Server running on " + PORT + " mode " + process.env.NODE_ENV));
+const server = app.listen(PORT,
+    console.log(`Server running on ${PORT} mode ${process.env.NODE_ENV}`.yellow.bold)
+);
 
 
-
+// Global Error Handler
+// Which Handles Unhandled Promise Rejections
+process.on('unhandledRejection', (err, Promise) => {
+    console.log('Error: ', err.message);
+    // Close The Server and Exit
+    server.close(() => process.exit(1));
+})
