@@ -1,76 +1,55 @@
-// @desc    Get All Bootcamps 
-// @route   GET /api/v1/bootcamps
 
 const Bootcamp = require("../models/Bootcamp");
 const ErrorResponse = require("../utils/errorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
 
-// access   Public
-exports.GetBootcamps = async (req, res, next) => {
-    try {
-        var bootcamps = await Bootcamp.find();
-        res.status(200).json({ sucess: true, msg: "Get All Bootcamps", data: bootcamps });
-    } catch (error) {
-        next(error);
-    }
-}
+// @desc    Get All Bootcamps 
+// @route   GET /api/v1/bootcamps
+// @access  public
+exports.GetBootcamps = asyncHandler(async (req, res, next) => {
+    var bootcamps = await Bootcamp.find();
+    res.status(200).json({ sucess: true, msg: "Get All Bootcamps", data: bootcamps });
+});
 
-exports.GetBootcampById = async (req, res, next) => {
-    try {
-        var bootcamp = await Bootcamp.findById(req.params.id);
+exports.GetBootcampById = asyncHandler(async (req, res, next) => {
+    var bootcamp = await Bootcamp.findById(req.params.id);
 
-        if (!bootcamp) {
-            // return res.status(400).json({ sucess: false });
-            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
-        }
-
-        res.status(200).json({
-            sucess: true,
-            data: bootcamp,
-            msg: "Get Single Bootcamp Quried By Id " + req.params["id"]
-        });
-    } catch (error) {
-        next(error);
-        // next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
+    if (!bootcamp) {
+        return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
     }
 
-}
+    res.status(200).json({
+        sucess: true,
+        data: bootcamp,
+        msg: "Get Single Bootcamp Quried By Id " + req.params["id"]
+    });
+});
 
-exports.CreateBootcamp = async (req, res, next) => {
-    try {
-        const bootcamp = await Bootcamp.create(req.body);
-        res.status(201).json({ sucess: true, msg: "Created a Bootcamp Sucessfully", data: bootcamp });
-    } catch (error) {
-        next(error)
+exports.CreateBootcamp = asyncHandler(async (req, res, next) => {
+    const bootcamp = await Bootcamp.create(req.body);
+    res.status(201).json({ sucess: true, msg: "Created a Bootcamp Sucessfully", data: bootcamp });
+})
+
+exports.UpdateBootcamp = asyncHandler(async (req, res, next) => {
+
+    var bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!bootcamp) {
+        return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404));
     }
 
-}
+    res.status(200).json({ sucess: true, msg: "Update a Bootcamp Sucessfully", data: bootcamp });
+})
 
-exports.UpdateBootcamp = async (req, res, next) => {
-    try {
-        var bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+exports.DeleteBootcamp = asyncHandler(async (req, res, next) => {
 
-        if (!bootcamp) {
-            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404));
-        }
+    var bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
-        res.status(200).json({ sucess: true, msg: "Update a Bootcamp Sucessfully", data: bootcamp });
-    } catch (error) {
-        next(error);
+    if (!bootcamp) {
+        return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404));
     }
-}
-
-exports.DeleteBootcamp = async (req, res, next) => {
-    try {
-        var bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
-
-        if (!bootcamp) {
-            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404));
-        }
-        res.status(200).json({ sucess: true, msg: "Delete a Bootcamp Sucessfully" });
-    } catch (error) {
-        next(error);
-    }
-}
+    res.status(200).json({ sucess: true, msg: "Delete a Bootcamp Sucessfully" });
+})
