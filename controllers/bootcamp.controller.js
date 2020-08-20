@@ -2,6 +2,7 @@
 // @route   GET /api/v1/bootcamps
 
 const Bootcamp = require("../models/Bootcamp");
+const ErrorResponse = require("../utils/errorResponse");
 
 // access   Public
 exports.GetBootcamps = async (req,res,next) => {
@@ -10,15 +11,22 @@ exports.GetBootcamps = async (req,res,next) => {
 }
 
 exports.GetBootcampById = async (req,res,next) => {
-    var bootcamp = await Bootcamp.findById(req.params.id);
+    try {
+        var bootcamp = await Bootcamp.findById(req.params.id);
 
-    if (!bootcamp) {
-        return res.status(400).json({ sucess: false });
+        if (!bootcamp) {
+            // return res.status(400).json({ sucess: false });
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
+        }
+    
+        res.status(200).json({  sucess: true,
+                                data: bootcamp, 
+                                msg: "Get Single Bootcamp Quried By Id " + req.params["id"] });     
+    } catch (error) {
+        // next(error);
+        next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
     }
-
-    res.status(200).json({  sucess: true,
-                            data: bootcamp, 
-                            msg: "Get Single Bootcamp Quried By Id " + req.params["id"] });
+   
 }
 
 exports.CreateBootcamp = async (req,res,next) => {
