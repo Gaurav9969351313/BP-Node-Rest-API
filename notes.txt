@@ -22,3 +22,6 @@ npm i --save colors
 dry Principle
 Dont Repeat Yourself
 
+npm i --save slugify node-geocoder
+
+GEOCODER_PROVIDER=mapquest
