@@ -18,3 +18,7 @@ to see the commit history
 npm install --save morgan
 
 npm i --save colors
+
+dry Principle
+Dont Repeat Yourself
+
