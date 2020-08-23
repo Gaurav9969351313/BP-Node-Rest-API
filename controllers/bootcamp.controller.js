@@ -50,7 +50,7 @@ exports.GetBootcamps = asyncHandler(async (req, res, next) => {
     }
 
     res.status(200).json({ sucess: true, msg: "Get All Bootcamps", 
-                           pagination: pagination,
+                           pagination: paginationControls,
                            count: bootcamps.length, data: bootcamps });
 });
 
