@@ -25,3 +25,7 @@ Dont Repeat Yourself
 npm i --save slugify node-geocoder
 
 GEOCODER_PROVIDER=mapquest
+
+/?avgRating[lte]=2
+/?avgRating[lte]=2&name=Devworks Bootcamp
+/?careers[in]=Data Science

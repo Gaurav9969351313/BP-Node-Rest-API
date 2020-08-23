@@ -3,7 +3,20 @@
 @id=5f3c0039da90c1337899ce58
 
 ### Get All Bootcamp
-GET {{host}}/{{baseUrlForBootcamp}} HTTP/1.1
+GET {{host}}/{{baseUrlForBootcamp}}?page=1 HTTP/1.1
+
+### Filters With Mongoose
+GET {{host}}/{{baseUrlForBootcamp}}?avgRating[lte]=2 HTTP/1.1
+
+### Filter Through Array
+GET {{host}}/{{baseUrlForBootcamp}}?careers[in]=Other HTTP/1.1
+
+### Projection
+GET {{host}}/{{baseUrlForBootcamp}}?select=name,description&careers[in]=Data Science
+
+### Pagination 
+GET {{host}}/{{baseUrlForBootcamp}}?select=name,description&limit=2&page=2
+
 
 ### Get Single Bootcamp
 GET {{host}}/{{baseUrlForBootcamp}}/5f3c0039da90c1337899ce58 HTTP/1.1
