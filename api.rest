@@ -1,6 +1,10 @@
 @host=http://localhost:5000
 @baseUrlForBootcamp=api/v1/bootcamp
 @baseUrlForCourses=api/v1/course
+@baseUrlForUsers=api/v1/user 
+
+@baseUrlForReviews=api/v1/review
+
 @id=5f3c0039da90c1337899ce58
 
 ### Get All Bootcamp
@@ -95,8 +99,58 @@ Content-Type: application/json
 		"user": "5c8a1d5b0190b214360dc032"
 }
 
-
-
 ### Update A course
 
 ### Delete A course
+
+
+############################  Users  ###################################
+
+### Get All Users
+GET {{host}}/{{baseUrlForUsers}} HTTP/1.1
+
+### Get Single User
+GET {{host}}/{{baseUrlForUsers}}/ HTTP/1.1
+
+### Create a User
+POST {{host}}/{{baseUrlForUsers}} HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+### Update A User
+PUT {{host}}/{{baseUrlForUsers}}/ HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+
+### Delete A User
+DELETE {{host}}/{{baseUrlForUsers}}/ HTTP/1.1
+
+############################  Reviews  ###################################
+### Get All Reviews
+GET {{host}}/{{baseUrlForReviews}} HTTP/1.1
+
+### Get Single Review
+GET {{host}}/{{baseUrlForReviews}}/ HTTP/1.1
+
+### Create a Review
+POST {{host}}/{{baseUrlForReviews}} HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+### Update A Review
+PUT {{host}}/{{baseUrlForReviews}}/ HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+
+### Delete A Review
+DELETE {{host}}/{{baseUrlForReviews}}/ HTTP/1.1

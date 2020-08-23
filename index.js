@@ -18,6 +18,8 @@ app.use(express.json());
 // Load Route Files 
 const BootcampRoutes = require('./routes/bootcamps.routes');
 const CourseRoutes = require('./routes/courses.routes');
+const UsersRoutes = require('./routes/users.routes');
+const ReviewsRoutes = require('./routes/reviews.routes');
 
 // Load Middlewares
 const logger = require('./middlewares/logger');
@@ -29,6 +31,8 @@ if (process.env.NODE_ENV == 'developement') {
 // Mount the routes 
 app.use('/api/v1/bootcamp', BootcampRoutes);
 app.use('/api/v1/course', CourseRoutes);
+app.use('/api/v1/user', UsersRoutes);
+app.use('/api/v1/review', ReviewsRoutes);
 
 // ** Specific Use Case middleware after routes mounting 
 app.use(errorHandler);
