@@ -12,19 +12,18 @@ exports.GetCourses = asyncHandler(async (req, res, next) => {
     let Query;
 
     if (req.params["bootcampId"]) {
-        Query = Course.find({ bootcamp: req.params["bootcampId"] })
+        const courses = await Course.find({ bootcamp: req.params["bootcampId"] })
+        res.status(200).json({ sucess: true, msg: "Get Courses by bootcampId", 
+                           count: courses.length, data: courses });
     } else {
         // Query = Course.find().populate('bootcamp');
-        Query = Course.find().populate({
-            path: 'bootcamp',
-            select: 'name description'
-        })
-    }
+        // Query = Course.find().populate({
+        //     path: 'bootcamp',
+        //     select: 'name description'
+        // })
 
-    const courses = await Query;
-
-    res.status(200).json({ sucess: true, msg: "Get All Courses", 
-                           count: courses.length, data: courses });
+        res.status(200).json(res.advancedResults);
+    }    
 });
 
 exports.GetCourseById = asyncHandler(async (req, res, next) => {

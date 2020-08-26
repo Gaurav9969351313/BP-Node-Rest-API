@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const advancedResults = require('../middlewares/advanceResults');
+const Bootcamp = require('../models/Bootcamp'); 
+
 const { GetBootcamps, 
         GetBootcampById, 
         CreateBootcamp, 
@@ -12,7 +15,7 @@ const courseRouter = require('./courses.routes');
 router.use('/:bootcampId/courses', courseRouter);
 
 router.route('/')
-        .get(GetBootcamps)
+        .get(advancedResults(Bootcamp, 'courses'), GetBootcamps)
         .post(CreateBootcamp);
 
 router.route('/:id')

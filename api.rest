@@ -102,6 +102,7 @@ Content-Type: application/json
 ### Update A course
 
 ### Delete A course
+DELETE {{host}}/{{baseUrlForCourses}}/5d725cfec4ded7bcb480eaa6
 
 
 ############################  Users  ###################################
