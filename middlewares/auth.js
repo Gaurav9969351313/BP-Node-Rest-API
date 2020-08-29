@@ -35,3 +35,13 @@ exports.protect = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Invalid / Missing Token', 401));
     }
 })  
+
+// Grant Access To Specific Roles Only
+exports.authorize = (...roles) => {
+    return (req,res,next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(new ErrorResponse(`User Role ${req.user.role} Is Un-Authorized To Access This Route`, 403));
+        }
+        next();
+    }
+}

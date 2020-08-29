@@ -3,7 +3,7 @@ const router = express.Router();
 
 const advancedResults = require('../middlewares/advanceResults');
 const Bootcamp = require('../models/Bootcamp'); 
-const { protect } = require('../middlewares/auth');
+const { protect, authorize } = require('../middlewares/auth');
 
 const { GetBootcamps, 
         GetBootcampById, 
@@ -22,6 +22,6 @@ router.route('/')
 router.route('/:id')
         .put(UpdateBootcamp)
         .get(GetBootcampById)
-        .delete(protect ,DeleteBootcamp)
+        .delete(protect, authorize('publisher', 'admin'), DeleteBootcamp)
 
 module.exports = router;

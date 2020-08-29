@@ -5,6 +5,9 @@
 @baseUrlForCourses=api/v1/course
 @baseUrlForReviews=api/v1/review
 
+### Mongo Shell Conection 
+#   sudo ./mongo "mongodb+srv://admin:admin@cluster0.ydwzn.mongodb.net/dev-bp-node?retryWrites=true&w=majority"
+
 ### Get All Bootcamp
 GET {{host}}/{{baseUrlForBootcamp}}?page=1 HTTP/1.1
 
@@ -122,6 +125,18 @@ Content-Type: application/json
     "role": "user"
 }
 
+
+### User Registration / Create a User - Admin 
+POST {{host}}/{{baseUrlForUsers}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Kajal Talele",
+    "email": "kajaltalele@gmail.com",
+    "password": "qwerty@1234",
+    "role": "admin"
+}
+
 ### User Login
 # @name loginResp
 POST {{host}}/{{baseUrlForUsers}}/auth/login HTTP/1.1
@@ -132,8 +147,19 @@ Content-Type: application/json
     "password": "qwerty@123"
 }
 
+### Admin Login
+# @name loginResp
+POST {{host}}/{{baseUrlForUsers}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "kajaltalele@gmail.com",
+    "password": "qwerty@1234"
+}
+
+
 ### Delete a Bootcamp
-DELETE {{host}}/{{baseUrlForBootcamp}}/5d713995b721c3bb38c1f5d0 HTTP/1.1
+DELETE {{host}}/{{baseUrlForBootcamp}}/5d713a66ec8f2b88b8f830b8 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{ loginResp.response.body.token }}
 
