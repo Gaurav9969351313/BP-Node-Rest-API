@@ -1,13 +1,17 @@
 const express = require('express');
+const router = express.Router({ mergeParams: true });
+
 const {
   getUsers,
   getUser,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  login,
+  getMe
 } = require('../controllers/user.controller');
 
-const router = express.Router({ mergeParams: true });
+const { protect } = require('../middlewares/auth');
 
 router
   .route('/')
@@ -19,5 +23,12 @@ router
   .get(getUser)
   .put(updateUser)
   .delete(deleteUser);
+
+router
+  .route('/auth/login')
+  .post(login)
+
+router.route('/auth/me')
+  .get(protect, getMe)
 
 module.exports = router;
