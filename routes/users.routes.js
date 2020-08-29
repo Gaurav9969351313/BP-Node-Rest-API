@@ -8,7 +8,8 @@ const {
   updateUser,
   deleteUser,
   login,
-  getMe
+  getMe,
+  logout
 } = require('../controllers/user.controller');
 
 const { protect } = require('../middlewares/auth');
@@ -30,5 +31,8 @@ router
 
 router.route('/auth/me')
   .get(protect, getMe)
+
+router.route('/auth/logout')
+  .get(protect, logout)
 
 module.exports = router;

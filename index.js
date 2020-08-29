@@ -3,7 +3,13 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
-const CookieParser = require('cookie-parser'); 
+const CookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const xss = require('xss-clean');
+const cors = require('cors')
 const errorHandler = require('./middlewares/errorHandler');
 const connectDB = require('./config/db');
 
@@ -13,9 +19,33 @@ connectDB();
 
 const app = express();
 
+
 // Body Parser
 app.use(express.json());
+
+// Cors
+app.use(cors());
+
+app.use(mongoSanitize());
 app.use(CookieParser());
+
+// Set Security Headers
+app.use(helmet());
+
+// Avoid XSS
+app.use(xss());
+
+// hpp attack prevention: http parameter prevention
+app.use(hpp())
+
+// Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+
+//  apply to all requests
+app.use(limiter);
 
 // Load Route Files 
 const BootcampRoutes = require('./routes/bootcamps.routes');

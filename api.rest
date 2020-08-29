@@ -157,7 +157,6 @@ Content-Type: application/json
     "password": "qwerty@1234"
 }
 
-
 ### Delete a Bootcamp
 DELETE {{host}}/{{baseUrlForBootcamp}}/5d713a66ec8f2b88b8f830b8 HTTP/1.1
 Content-Type: application/json
@@ -168,6 +167,15 @@ GET {{host}}/{{baseUrlForUsers}}/auth/me HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{ loginResp.response.body.token }}
 
+### LogOut User
+GET {{host}}/{{baseUrlForUsers}}/auth/logout HTTP/1.1
+Content-Type: application/json
+
+### After logout --> coockie gets cleared and we are not providing authorization header
+### Pure Cookie based authentication
+GET {{host}}/{{baseUrlForUsers}}/auth/me HTTP/1.1
+Content-Type: application/json
+
 ### Update A User
 PUT {{host}}/{{baseUrlForUsers}}/ HTTP/1.1
 Content-Type: application/json
@@ -175,6 +183,19 @@ Content-Type: application/json
 {
 
 }
+
+### Attack on login route --> /me --> Everthing Opens Up ==> Solution : Sanitize input
+POST {{host}}/{{baseUrlForUsers}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": { "$gt": "" },
+    "password": "qwerty@123"
+}
+
+### Attack Uisng XSS Scripting : add malicious html/js code in request body
+
+
 
 ### Delete A User
 DELETE {{host}}/{{baseUrlForUsers}}/ HTTP/1.1
